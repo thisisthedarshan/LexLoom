@@ -17,6 +17,11 @@
 const { mapScope } = require('../mappings');
 const presets = require('../presets');
 
+function processVimMarker(str) {
+    if (!str) return '';
+    return presets.escape(str).replace(/ /g, '\\s*');
+}
+
 /**
  * Generates a Vim syntax file (.vim).
  * @param {object} grammar 
@@ -66,10 +71,10 @@ function generateVim(grammar) {
                 break;
             case 'preset':
                 const presetMap = {
-                    'number.decimal': '\\<[0-9]\\+\\>',
-                    'number.hex': '\\<0[xX][0-9a-fA-F]\\+\\>',
-                    'number.binary': '\\<0[bB][01]\\+\\>',
-                    'number.octal': '\\<0[0-7]\\+\\>'
+                    'number.decimal': '\\(\\k\\)\\@<!\\([+-]\\)\\?[0-9]\\+\\>',
+                    'number.hex': '\\(\\k\\)\\@<!\\([+-]\\)\\?0[xX][0-9a-fA-F]\\+\\>',
+                    'number.binary': '\\(\\k\\)\\@<!\\([+-]\\)\\?0[bB][01]\\+\\>',
+                    'number.octal': '\\(\\k\\)\\@<!\\([+-]\\)\\?0[oO]\\?[0-7]\\+\\>'
                 };
                 const pattern = presetMap[r.presetId] || '';
                 if (pattern) {
@@ -77,14 +82,14 @@ function generateVim(grammar) {
                 }
                 break;
             case 'lineMarker':
-                ruleOutput += `syntax match ${id} "${vimRegex(`${presets.escape(r.start)}.*`)}"\n`;
+                ruleOutput += `syntax match ${id} "${vimRegex(`${processVimMarker(r.start)}.*`)}"\n`;
                 break;
             case 'blockMarker':
-                ruleOutput += `syntax region ${id} start="${vimRegex(presets.escape(r.start))}" end="${vimRegex(presets.escape(r.end))}"${containsClause}\n`;
+                ruleOutput += `syntax region ${id} start="${vimRegex(processVimMarker(r.start))}" end="${vimRegex(processVimMarker(r.end))}"${containsClause}\n`;
                 break;
             case 'stringMarker':
                 const skipStr = r.escapeChar ? ` skip="\\\\\\\\|\\\\\\\""` : "";
-                ruleOutput += `syntax region ${id} start="${vimRegex(presets.escape(r.quote))}" end="${vimRegex(presets.escape(r.quote))}"${skipStr}${containsClause}\n`;
+                ruleOutput += `syntax region ${id} start="${vimRegex(processVimMarker(r.quote))}" end="${vimRegex(processVimMarker(r.quote))}"${skipStr}${containsClause}\n`;
                 break;
         }
 

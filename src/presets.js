@@ -20,10 +20,11 @@
 const presets = {
     // Numeric patterns
     numbers: {
-        hex: '0[xX][0-9a-fA-F]+',
-        binary: '0[bB][01]+',
-        decimal: '\\d+',
-        float: '\\d*\\.\\d+'
+        hex: '[+-]?0[xX][0-9a-fA-F]+',
+        binary: '[+-]?0[bB][01]+',
+        decimal: '[+-]?\\d+',
+        octal: '[+-]?0[oO]?[0-7]+',
+        float: '[+-]?\\d*\\.\\d+'
     },
 
     // Comments

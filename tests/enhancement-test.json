@@ -1,0 +1,32 @@
+{
+    "$schema": "../schema/lexloom.schema.json",
+    "metadata": {
+        "name": "EnhancementTest",
+        "scopeName": "source.enhancement",
+        "extensions": [
+            ".et"
+        ]
+    },
+    "rules": [
+        {
+            "ruleType": "preset",
+            "universalScope": "constant.numeric",
+            "presetId": "number.octal"
+        },
+        {
+            "ruleType": "preset",
+            "universalScope": "constant.numeric",
+            "presetId": "number.decimal"
+        },
+        {
+            "ruleType": "blockMarker",
+            "universalScope": "string.quoted.triple",
+            "start": "C = \"\"\"",
+            "end": "\"\"\"",
+            "injectLanguage": {
+                "textmateScope": "source.python",
+                "vimSyntax": "python"
+            }
+        }
+    ]
+}

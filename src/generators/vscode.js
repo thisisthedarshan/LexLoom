@@ -37,6 +37,11 @@ function generateVSCode(grammar) {
     return tmLanguage;
 }
 
+function processMarker(str) {
+    if (!str) return '';
+    return presets.escape(str).replace(/ /g, '\\s*');
+}
+
 function transformRule(r, langId) {
     const rule = {};
     const baseScope = mapScope(r.universalScope, 'vscode');
@@ -57,18 +62,22 @@ function transformRule(r, langId) {
                 'number.decimal': 'decimal',
                 'number.hex': 'hex',
                 'number.binary': 'binary',
-                'number.octal': 'decimal'
+                'number.octal': 'octal'
             };
             const rawRegex = presets.numbers[presetMap[r.presetId]] || presets.identifiers[r.presetId] || '';
-            // Add word boundaries to numeric presets
-            rule.match = `\\b${rawRegex}\\b`;
+            // Add boundaries to numeric presets. If it starts with an optional sign, use lookbehind.
+            if (rawRegex.startsWith('[+-]?')) {
+                rule.match = `(?<!\\w)${rawRegex}\\b`;
+            } else {
+                rule.match = `\\b${rawRegex}\\b`;
+            }
             break;
         case 'lineMarker':
-            rule.match = `${presets.escape(r.start)}.*`;
+            rule.match = `${processMarker(r.start)}.*`;
             break;
         case 'blockMarker':
-            rule.begin = presets.escape(r.start);
-            rule.end = presets.escape(r.end);
+            rule.begin = processMarker(r.start);
+            rule.end = processMarker(r.end);
             rule.patterns = [];
             const blockInjections = Array.isArray(r.injectLanguage) ? r.injectLanguage : (r.injectLanguage ? [r.injectLanguage] : []);
             blockInjections.forEach(inj => {
@@ -79,8 +88,8 @@ function transformRule(r, langId) {
             if (rule.patterns.length === 0) delete rule.patterns;
             break;
         case 'stringMarker':
-            rule.begin = presets.escape(r.quote);
-            rule.end = presets.escape(r.quote);
+            rule.begin = processMarker(r.quote);
+            rule.end = processMarker(r.quote);
             rule.patterns = [];
 
             const stringInjections = Array.isArray(r.injectLanguage) ? r.injectLanguage : (r.injectLanguage ? [r.injectLanguage] : []);

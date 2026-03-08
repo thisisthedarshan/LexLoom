@@ -5,8 +5,13 @@ All notable changes to the LexLoom project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.2] - 2026-03-08
+### Added
+- **Flexible Space Handling**: Spaces in `start`, `end`, and `quote` fields are now automatically converted to flexible whitespace (`\s*`) in the generated output, allowing for better matching of constructs like `C = """`.
+- **Numeric Sign Support**: All numeric presets now include support for optional leading signs (`[+-]?`).
+
 ### Fixed
+- Fixed the octal numeric preset in VS Code (previously incorrectly mapped to decimal).
 - Improved `lexloom.schema.json` validation for multiple injections by changing `injectLanguageArray` from `oneOf` to `anyOf`, resolving "Incorrect type" errors in certain IDE environments.
 
 ## [1.0.1] - 2026-03-08
