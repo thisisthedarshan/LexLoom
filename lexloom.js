@@ -31,7 +31,7 @@ Usage:
 Options:
   --out <dir>      Output directory (default: ./out)
   --name <name>    Custom base name for generated files
-  --scaffold-vsc   Scaffold a VS Code extension project
+  --scaffold-vsc   Scaffold a VS Code Web extension project
   --help, -h       Show this help message
     `);
     process.exit(0);

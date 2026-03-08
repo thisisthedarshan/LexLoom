@@ -13,7 +13,7 @@ Define your language once. Generate native highlighters everywhere.
 
 * **🧠 Regex-Free Authoring**: Define language constructs by intent (e.g., `wordList`, `symbolList`, `stringMarker`) rather than writing platform-specific regular expressions.
 * **🌍 Write Once, Highlight Anywhere**: Instantly generate highlighters for VS Code (`.tmLanguage.json`), Vim (`.vim`), and Notepad++ (UDL `.xml`).
-* **⚡ VS Code Extension Scaffolding**: Bootstrap a ready-to-use, publishable VS Code extension project directly from your grammar.
+* **⚡ VS Code Web Extension Scaffolding**: Bootstrap a ready-to-use, publishable VS Code Web extension project directly from your grammar.
 * **🔋 Batteries-Included Presets**: Built-in, highly optimized regex patterns for common needs like decimals, hex numbers, binary, and embedded language injection.
 
 ## 🚀 Quick Start
@@ -72,7 +72,7 @@ out/
 ├── vscode/            # TextMate .tmLanguage.json
 ├── vim/               # Vim .vim syntax script
 ├── notepadpp/         # Notepad++ .xml UDL
-└── vscode-extension/  # A complete, ready-to-publish VS Code extension!
+└── vscode-extension/  # A complete, ready-to-publish VS Code Web extension!
 
 ```
 

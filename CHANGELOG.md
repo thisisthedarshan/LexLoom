@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - **Custom Output Naming**: Added `--name <name>` CLI option to specify the base name for generated files.
 - **Improved Filename Generation**: Default generated filenames now replace spaces in the grammar name with underscores (`_`) instead of just lowercasing.
+- **Enhanced VS Code Scaffolding**: The VS Code extension scaffolding now uses a comprehensive set of template files (extensions, build configs, linting) and performs dynamic string replacements for project names, commands, and grammar scope names (`DDD{scope_name}`).
+- **Rich Language Injections**: VS Code language injections now include a `contentName` property (formatted as `meta.embedded.block.<lang>`), enabling better scoping and themed backgrounds for injected code blocks.
 
 ## [1.0.2] - 2026-03-08
 ### Added

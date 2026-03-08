@@ -72,7 +72,7 @@ class LexLoom {
         // 4. Scaffold VS Code Extension (if requested)
         if (this.options.scaffoldVSC) {
             const scaffoldDir = path.join(this.outDir, 'vscode-extension');
-            await scaffoldVSCodeExtension(scaffoldDir, normalizedGrammar);
+            await scaffoldVSCodeExtension(scaffoldDir, normalizedGrammar, baseName);
 
             // Inject grammar
             const targetSyntaxPath = path.join(scaffoldDir, 'syntaxes', `${baseName}.tmLanguage.json`);

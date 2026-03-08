@@ -82,7 +82,11 @@ function transformRule(r, langId) {
             const blockInjections = Array.isArray(r.injectLanguage) ? r.injectLanguage : (r.injectLanguage ? [r.injectLanguage] : []);
             blockInjections.forEach(inj => {
                 if (inj.textmateScope) {
-                    rule.patterns.push({ include: inj.textmateScope });
+                    const contentName = `meta.embedded.block.${inj.textmateScope.replace(/^source\./, '')}`;
+                    rule.patterns.push({
+                        include: inj.textmateScope,
+                        contentName
+                    });
                 }
             });
             if (rule.patterns.length === 0) delete rule.patterns;
@@ -95,7 +99,11 @@ function transformRule(r, langId) {
             const stringInjections = Array.isArray(r.injectLanguage) ? r.injectLanguage : (r.injectLanguage ? [r.injectLanguage] : []);
             stringInjections.forEach(inj => {
                 if (inj.textmateScope) {
-                    rule.patterns.push({ include: inj.textmateScope });
+                    const contentName = `meta.embedded.block.${inj.textmateScope.replace(/^source\./, '')}`;
+                    rule.patterns.push({
+                        include: inj.textmateScope,
+                        contentName
+                    });
                 }
             });
 
