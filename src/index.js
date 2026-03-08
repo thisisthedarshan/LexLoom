@@ -40,6 +40,7 @@ class LexLoom {
         }
 
         const name = metadata.name;
+        const baseName = this.options.name || name.toLowerCase().replace(/\s+/g, '_');
         const scopeName = metadata.scopeName;
         const fileTypes = (metadata.extensions || []).map(ext => ext.replace(/^\./, ''));
 
@@ -52,19 +53,19 @@ class LexLoom {
 
         // 1. Generate VS Code
         const vscodeGrammar = generateVSCode(normalizedGrammar);
-        const vscodePath = path.join(this.outDir, 'vscode', `${name.toLowerCase()}.tmLanguage.json`);
+        const vscodePath = path.join(this.outDir, 'vscode', `${baseName}.tmLanguage.json`);
         await writeJson(vscodePath, vscodeGrammar);
         console.log(`✅ VS Code grammar generated: ${vscodePath}`);
 
         // 2. Generate Vim
         const vimGrammar = generateVim(normalizedGrammar);
-        const vimPath = path.join(this.outDir, 'vim', `${name.toLowerCase()}.vim`);
+        const vimPath = path.join(this.outDir, 'vim', `${baseName}.vim`);
         await writeFile(vimPath, vimGrammar);
         console.log(`✅ Vim syntax generated: ${vimPath}`);
 
         // 3. Generate Notepad++
         const nppGrammar = generateNotepadPP(normalizedGrammar);
-        const nppPath = path.join(this.outDir, 'notepadpp', `${name.toLowerCase()}.xml`);
+        const nppPath = path.join(this.outDir, 'notepadpp', `${baseName}.xml`);
         await writeFile(nppPath, nppGrammar);
         console.log(`✅ Notepad++ UDL generated: ${nppPath}`);
 
@@ -74,7 +75,7 @@ class LexLoom {
             await scaffoldVSCodeExtension(scaffoldDir, normalizedGrammar);
 
             // Inject grammar
-            const targetSyntaxPath = path.join(scaffoldDir, 'syntaxes', `${name.toLowerCase()}.tmLanguage.json`);
+            const targetSyntaxPath = path.join(scaffoldDir, 'syntaxes', `${baseName}.tmLanguage.json`);
             await writeJson(targetSyntaxPath, vscodeGrammar);
             console.log(`🎉 VS Code Extension scaffolded: ${scaffoldDir}`);
         }

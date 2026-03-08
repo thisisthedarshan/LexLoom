@@ -1,0 +1,19 @@
+{
+    "$schema": "../schema/lexloom.schema.json",
+    "metadata": {
+        "name": "Space Name Test",
+        "scopeName": "source.space-test",
+        "extensions": [
+            ".st"
+        ]
+    },
+    "rules": [
+        {
+            "ruleType": "wordList",
+            "universalScope": "keyword.control",
+            "words": [
+                "test"
+            ]
+        }
+    ]
+}

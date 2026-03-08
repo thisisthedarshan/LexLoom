@@ -30,6 +30,7 @@ Usage:
 
 Options:
   --out <dir>      Output directory (default: ./out)
+  --name <name>    Custom base name for generated files
   --scaffold-vsc   Scaffold a VS Code extension project
   --help, -h       Show this help message
     `);
@@ -39,9 +40,13 @@ Options:
 const grammarPath = path.resolve(args[0]);
 const outDirArgIdx = args.indexOf('--out');
 const outDir = outDirArgIdx !== -1 ? path.resolve(args[outDirArgIdx + 1]) : path.join(process.cwd(), 'out');
+
+const nameArgIdx = args.indexOf('--name');
+const customName = nameArgIdx !== -1 ? args[nameArgIdx + 1] : null;
+
 const scaffoldVSC = args.includes('--scaffold-vsc');
 
-const loom = new LexLoom({ outDir, scaffoldVSC });
+const loom = new LexLoom({ outDir, scaffoldVSC, name: customName });
 
 loom.run(grammarPath).catch(err => {
     console.error(`❌ Error: ${err.message}`);
