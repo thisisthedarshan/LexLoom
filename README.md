@@ -1,5 +1,10 @@
 # LexLoom 🧵
 
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![npm version](https://badge.fury.io/js/lexloom.svg)](https://www.npmjs.com/package/lexloom)
+[![Known Vulnerabilities](http://snyk.io/test/npm/lexloom/badge.svg)](https://security.snyk.io/package/npm/lexloom)
+[![Socket Badge](https://badge.socket.dev/npm/package/lexloom/)](https://badge.socket.dev/npm/package/lexloom/)
+
 LexLoom is a cross-platform syntax highlighting meta-compiler. It abstracts the nightmare of writing complex, engine-specific grammar files (Oniguruma for VS Code, procedural regex for Vim, and XML for Notepad++) into a single, clean JSON file.
 
 Define your language once. Generate native highlighters everywhere.
