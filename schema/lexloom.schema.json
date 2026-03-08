@@ -333,7 +333,7 @@
         },
         "injectLanguageArray": {
             "description": "A single language injection or an array of multiple relative injections.",
-            "oneOf": [
+            "anyOf": [
                 {
                     "$ref": "#/definitions/injectionObject"
                 },
