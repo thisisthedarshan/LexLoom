@@ -17,12 +17,12 @@
  */
 
 const path = require('path');
-const LexLoom = require('../src/index');
+const LexLoom = require('./src/index');
 
 const args = process.argv.slice(2);
 
 if (args.length === 0 || args.includes('--help') || args.includes('-h')) {
-  console.log(`
+    console.log(`
 LexLoom: Cross-platform Syntax Highlighting Meta-Compiler
 
 Usage:
@@ -33,7 +33,7 @@ Options:
   --scaffold-vsc   Scaffold a VS Code extension project
   --help, -h       Show this help message
     `);
-  process.exit(0);
+    process.exit(0);
 }
 
 const grammarPath = path.resolve(args[0]);
@@ -44,6 +44,6 @@ const scaffoldVSC = args.includes('--scaffold-vsc');
 const loom = new LexLoom({ outDir, scaffoldVSC });
 
 loom.run(grammarPath).catch(err => {
-  console.error(`❌ Error: ${err.message}`);
-  process.exit(1);
+    console.error(`❌ Error: ${err.message}`);
+    process.exit(1);
 });

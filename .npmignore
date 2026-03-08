@@ -1,0 +1,26 @@
+# NPM Ignore configuration for LexLoom
+
+# Development & Tooling
+.gemini/
+.git/
+.vscode/
+
+# Build & Test Artifacts
+out/
+tests/
+sample-grammar.json
+lexloom.schema.json
+
+# Logs & Meta
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# We include:
+# - src/ (Required core logic)
+# - lexloom.js (Binary)
+# - package.json
+# - README.md
+# - LICENSE
+# - CHANGELOG.md
+# - CONTRIBUTING.md
