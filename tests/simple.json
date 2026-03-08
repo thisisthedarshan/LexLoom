@@ -1,0 +1,28 @@
+{
+    "$schema": "https://raw.githubusercontent.com/thisisthedarshan/LexLoom/refs/heads/main/schema/lexloom.schema.json",
+    "metadata": {
+        "name": "SimpleLang",
+        "scopeName": "source.simple",
+        "extensions": [
+            ".simple"
+        ],
+        "version": "1.0.0"
+    },
+    "rules": [
+        {
+            "ruleType": "wordList",
+            "universalScope": "keyword.control",
+            "words": [
+                "if",
+                "else",
+                "while",
+                "return"
+            ]
+        },
+        {
+            "ruleType": "lineMarker",
+            "universalScope": "comment.line",
+            "start": "--"
+        }
+    ]
+}

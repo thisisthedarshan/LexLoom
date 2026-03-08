@@ -1,0 +1,75 @@
+{
+    "$schema": "https://raw.githubusercontent.com/thisisthedarshan/LexLoom/refs/heads/main/schema/lexloom.schema.json",
+    "metadata": {
+        "name": "IntermediateLang",
+        "scopeName": "source.intermediate",
+        "extensions": [
+            ".intm"
+        ],
+        "version": "1.0.0"
+    },
+    "rules": [
+        {
+            "ruleType": "wordList",
+            "universalScope": "keyword.control",
+            "words": [
+                "fun",
+                "let",
+                "const",
+                "type"
+            ]
+        },
+        {
+            "ruleType": "wordList",
+            "universalScope": "support.type",
+            "words": [
+                "i32",
+                "f64",
+                "str",
+                "bool"
+            ]
+        },
+        {
+            "ruleType": "symbolList",
+            "universalScope": "keyword.operator",
+            "symbols": [
+                "+",
+                "-",
+                "*",
+                "/",
+                "==",
+                "!=",
+                "&&",
+                "||",
+                "=>"
+            ]
+        },
+        {
+            "ruleType": "preset",
+            "universalScope": "constant.numeric",
+            "presetId": "number.decimal"
+        },
+        {
+            "ruleType": "preset",
+            "universalScope": "constant.numeric",
+            "presetId": "number.hex"
+        },
+        {
+            "ruleType": "lineMarker",
+            "universalScope": "comment.line",
+            "start": "#"
+        },
+        {
+            "ruleType": "blockMarker",
+            "universalScope": "comment.block",
+            "start": "{-",
+            "end": "-}"
+        },
+        {
+            "ruleType": "stringMarker",
+            "universalScope": "string.quoted.double",
+            "quote": "'",
+            "escapeChar": "\\"
+        }
+    ]
+}

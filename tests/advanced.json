@@ -1,0 +1,102 @@
+{
+    "$schema": "https://raw.githubusercontent.com/thisisthedarshan/LexLoom/refs/heads/main/schema/lexloom.schema.json",
+    "metadata": {
+        "name": "AdvancedLang",
+        "scopeName": "source.advanced",
+        "extensions": [
+            ".adv"
+        ],
+        "version": "1.0.0"
+    },
+    "rules": [
+        {
+            "ruleType": "wordList",
+            "universalScope": "keyword.control",
+            "words": [
+                "module",
+                "import",
+                "export",
+                "async",
+                "await",
+                "match"
+            ]
+        },
+        {
+            "ruleType": "wordList",
+            "universalScope": "constant.language",
+            "words": [
+                "nil",
+                "none",
+                "Ok",
+                "Err"
+            ]
+        },
+        {
+            "ruleType": "symbolList",
+            "universalScope": "keyword.operator",
+            "symbols": [
+                "::",
+                "->",
+                "<-",
+                "..",
+                "...",
+                "++",
+                "--",
+                "<<",
+                ">>",
+                "|>"
+            ]
+        },
+        {
+            "ruleType": "preset",
+            "universalScope": "constant.numeric",
+            "presetId": "number.decimal"
+        },
+        {
+            "ruleType": "preset",
+            "universalScope": "constant.numeric",
+            "presetId": "number.hex"
+        },
+        {
+            "ruleType": "preset",
+            "universalScope": "constant.numeric",
+            "presetId": "number.binary"
+        },
+        {
+            "ruleType": "lineMarker",
+            "universalScope": "comment.line",
+            "start": "//"
+        },
+        {
+            "ruleType": "blockMarker",
+            "universalScope": "comment.block",
+            "start": "/*",
+            "end": "*/"
+        },
+        {
+            "ruleType": "stringMarker",
+            "universalScope": "string.quoted.double",
+            "quote": "\"",
+            "escapeChar": "\\"
+        },
+        {
+            "ruleType": "stringMarker",
+            "universalScope": "string.quoted.triple",
+            "quote": "'''",
+            "escapeChar": "\\",
+            "injectLanguage": {
+                "textmateScope": "source.cpp",
+                "vimSyntax": "cpp"
+            }
+        },
+        {
+            "ruleType": "stringMarker",
+            "universalScope": "string.quoted.double",
+            "quote": "`",
+            "injectLanguage": {
+                "textmateScope": "source.js",
+                "vimSyntax": "javascript"
+            }
+        }
+    ]
+}
