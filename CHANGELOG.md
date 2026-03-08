@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-03-08
+
 ### Added
 - **VS Code Extension Scaffolding**: Bootstrap a publishable VS Code extension project directly from a grammar file.
 - **Universal Mappings**: Implemented a "Rosetta Stone" mapping system to gracefully degrade TextMate scopes for Vim and Notepad++.
@@ -14,15 +16,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Rich Schema Documentation**: Refactored `lexloom.schema.json` to use `oneOf` patterns, providing hover descriptions for all scopes and rule types in the IDE.
 - **Apache 2.0 Licensing**: Added license headers to all source files and established a `LICENSE` file.
 - **Contributor Guide**: Created `CONTRIBUTING.md` with instructions for adding new platform generators.
+- **NPM Deployment Readiness**: Created `.npmignore` to ensure a lightweight package distribution.
 
 ### Changed
+- **CLI Migration**: Moved the CLI binary to the root (`lexloom.js`) for better NPM integration and local accessibility.
 - **Core Refactor**: Migrated to a new intent-based grammar schema (`metadata` and `rules`).
 - **Generator Improvements**:
     - **VS Code**: Added scope suffixing and word boundaries for numeric presets.
     - **Vim**: Implemented cluster-based language injection and specific regex escaping for symbols.
     - **Notepad++**: Added strict 2-digit delimiter prefixing and automatic style generation.
-- **CLI**: Improved CLI with `--out` directory support and better error reporting.
-- **README**: Full rewrite with Quick Start guides and modern aesthetic pointers.
+- **CLI Utilities**: Improved CLI with `--out` directory support and better error reporting.
+- **Official Documentation**: Full rewrite of `README.md` with modern aesthetics and comprehensive Quick Start guides.
 
 ### Fixed
 - Fixed regex over-escaping in the Vim generator for operators like `+` and `|`.
