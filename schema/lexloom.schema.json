@@ -19,16 +19,16 @@
             "properties": {
                 "name": {
                     "type": "string",
-                    "description": "Human readable name of the language (e.g., 'Portable Stimulus Standard')."
+                    "description": "Human readable name of the language (e.g., 'My Custom Language')."
                 },
                 "scopeName": {
                     "type": "string",
                     "pattern": "^source\\..+$",
-                    "description": "Top-level TextMate scope. Must start with 'source.' (e.g., 'source.pss')."
+                    "description": "Top-level TextMate scope. Must start with 'source.' (e.g., 'source.my-custom-language')."
                 },
                 "extensions": {
                     "type": "array",
-                    "description": "List of file extensions associated with this language (e.g., ['.pss']).",
+                    "description": "List of file extensions associated with this language (e.g., ['.mycustomlanguage']).",
                     "items": {
                         "type": "string",
                         "pattern": "^\\..+$"
@@ -54,34 +54,97 @@
                     "universalScope": {
                         "type": "string",
                         "description": "The standardized scope mapping. LexLoom will gracefully degrade this for editors like Vim and Notepad++.",
-                        "enum": [
-                            "keyword.control",
-                            "keyword.operator",
-                            "keyword.other",
-                            "support.type",
-                            "entity.name.type",
-                            "entity.name.function",
-                            "variable.other",
-                            "variable.parameter",
-                            "constant.numeric",
-                            "constant.language",
-                            "string.quoted.double",
-                            "string.quoted.single",
-                            "string.quoted.triple",
-                            "comment.line",
-                            "comment.block"
+                        "oneOf": [
+                            {
+                                "const": "keyword.control",
+                                "description": "Words that control the flow of execution (e.g., if, else, for, while, return, action, extend)."
+                            },
+                            {
+                                "const": "keyword.operator",
+                                "description": "Mathematical, logical, and assignment operators (e.g., +, -, *, ==, &&, =)."
+                            },
+                            {
+                                "const": "keyword.other",
+                                "description": "Modifiers and other structural keywords that don't control flow (e.g., static, virtual, const)."
+                            },
+                            {
+                                "const": "support.type",
+                                "description": "Built-in, primitive data types provided natively by the language (e.g., int, float, bool, string)."
+                            },
+                            {
+                                "const": "entity.name.type",
+                                "description": "Custom, user-defined types, classes, structs, or interfaces (e.g., MyClass, UserProfile)."
+                            },
+                            {
+                                "const": "entity.name.function",
+                                "description": "The names of functions or methods when they are declared or invoked (e.g., calculateTotal, print)."
+                            },
+                            {
+                                "const": "variable.other",
+                                "description": "Standard variables or identifiers used throughout the code (e.g., myVar, counter)."
+                            },
+                            {
+                                "const": "variable.parameter",
+                                "description": "Specific variables passed as arguments inside a function or method signature (e.g., x and y in add(x, y))."
+                            },
+                            {
+                                "const": "constant.numeric",
+                                "description": "Numbers, including decimals, hex, binary, and floats (e.g., 42, 3.14, 0xFF)."
+                            },
+                            {
+                                "const": "constant.language",
+                                "description": "Built-in, immutable language constants that act like primitives (e.g., true, false, null)."
+                            },
+                            {
+                                "const": "string.quoted.double",
+                                "description": "Standard strings wrapped in double quotes (e.g., \"Hello World\")."
+                            },
+                            {
+                                "const": "string.quoted.single",
+                                "description": "Strings or characters wrapped in single quotes (e.g., 'Hello' or 'A')."
+                            },
+                            {
+                                "const": "string.quoted.triple",
+                                "description": "Multi-line block strings, often used for documentation or raw text (e.g., \"\"\"Multi-line string\"\"\")."
+                            },
+                            {
+                                "const": "comment.line",
+                                "description": "Single-line comments (e.g., // This is a comment)."
+                            },
+                            {
+                                "const": "comment.block",
+                                "description": "Multi-line comments (e.g., /* This is a block comment */)."
+                            }
                         ]
                     },
                     "ruleType": {
                         "type": "string",
                         "description": "The intent-based rule logic to apply.",
-                        "enum": [
-                            "wordList",
-                            "symbolList",
-                            "preset",
-                            "lineMarker",
-                            "blockMarker",
-                            "stringMarker"
+                        "oneOf": [
+                            {
+                                "const": "wordList",
+                                "description": "A list of whole words to match (e.g., keywords). Handles word boundaries automatically."
+                            },
+                            {
+                                "const": "symbolList",
+                                "description": "A list of literal symbols or operators (e.g., +, ==). Handles regex escaping automatically."
+                            },
+                            {
+                                "const": "preset",
+                                "description": "Use a pre-defined, highly optimized regex pattern for common constructs like numbers."
+                            },
+                            {
+                                "const": "lineMarker",
+                                "description": "Matches a single-line construct starting with a specific marker (e.g., single-line comments)."
+                            },
+                            {
+                                "const": "blockMarker",
+                                "description": "Matches a multi-line region between a start and end marker (e.g., block comments)."
+                            },
+                            {
+                                "const": "stringMarker",
+                                "description": "Matches a quoted string with optional escape character and language injection support."
+                            }
                         ]
                     }
                 },
@@ -148,11 +211,23 @@
                                 "presetId": {
                                     "type": "string",
                                     "description": "Select a built-in highly optimized regex pattern.",
-                                    "enum": [
-                                        "number.decimal",
-                                        "number.hex",
-                                        "number.binary",
-                                        "number.octal"
+                                    "oneOf": [
+                                        {
+                                            "const": "number.decimal",
+                                            "description": "Standard integer or floating-point numbers in base 10."
+                                        },
+                                        {
+                                            "const": "number.hex",
+                                            "description": "Hexadecimal numbers starting with 0x or 0X (e.g., 0xFFAD)."
+                                        },
+                                        {
+                                            "const": "number.binary",
+                                            "description": "Binary numbers starting with 0b or 0B (e.g., 0b1010)."
+                                        },
+                                        {
+                                            "const": "number.octal",
+                                            "description": "Octal numbers starting with 0 or 0o (e.g., 0755)."
+                                        }
                                     ]
                                 }
                             }
