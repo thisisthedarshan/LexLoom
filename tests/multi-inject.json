@@ -1,0 +1,38 @@
+{
+    "$schema": "https://raw.githubusercontent.com/thisisthedarshan/LexLoom/refs/heads/main/schema/lexloom.schema.json",
+    "metadata": {
+        "name": "MultiInjectTest",
+        "scopeName": "source.multi-inject",
+        "extensions": [
+            ".mi"
+        ]
+    },
+    "rules": [
+        {
+            "ruleType": "blockMarker",
+            "universalScope": "string.quoted.triple",
+            "start": "<<<",
+            "end": ">>>",
+            "injectLanguage": [
+                {
+                    "textmateScope": "source.cpp",
+                    "vimSyntax": "cpp"
+                },
+                {
+                    "textmateScope": "source.js",
+                    "vimSyntax": "javascript"
+                }
+            ]
+        },
+        {
+            "ruleType": "stringMarker",
+            "universalScope": "string.quoted.double",
+            "quote": "\"",
+            "escapeChar": "\\",
+            "injectLanguage": {
+                "textmateScope": "source.css",
+                "vimSyntax": "css"
+            }
+        }
+    ]
+}

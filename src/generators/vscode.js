@@ -70,9 +70,12 @@ function transformRule(r, langId) {
             rule.begin = presets.escape(r.start);
             rule.end = presets.escape(r.end);
             rule.patterns = [];
-            if (r.injectLanguage && r.injectLanguage.textmateScope) {
-                rule.patterns.push({ include: r.injectLanguage.textmateScope });
-            }
+            const blockInjections = Array.isArray(r.injectLanguage) ? r.injectLanguage : (r.injectLanguage ? [r.injectLanguage] : []);
+            blockInjections.forEach(inj => {
+                if (inj.textmateScope) {
+                    rule.patterns.push({ include: inj.textmateScope });
+                }
+            });
             if (rule.patterns.length === 0) delete rule.patterns;
             break;
         case 'stringMarker':
@@ -80,9 +83,12 @@ function transformRule(r, langId) {
             rule.end = presets.escape(r.quote);
             rule.patterns = [];
 
-            if (r.injectLanguage && r.injectLanguage.textmateScope) {
-                rule.patterns.push({ include: r.injectLanguage.textmateScope });
-            }
+            const stringInjections = Array.isArray(r.injectLanguage) ? r.injectLanguage : (r.injectLanguage ? [r.injectLanguage] : []);
+            stringInjections.forEach(inj => {
+                if (inj.textmateScope) {
+                    rule.patterns.push({ include: inj.textmateScope });
+                }
+            });
 
             if (r.escapeChar) {
                 rule.patterns.push({

@@ -276,7 +276,7 @@
                                     "description": "Ending characters (e.g., '*/')."
                                 },
                                 "injectLanguage": {
-                                    "$ref": "#/definitions/injectLanguage"
+                                    "$ref": "#/definitions/injectLanguageArray"
                                 }
                             }
                         }
@@ -303,7 +303,7 @@
                                     "description": "The character used to escape quotes inside the string (e.g., '\\')."
                                 },
                                 "injectLanguage": {
-                                    "$ref": "#/definitions/injectLanguage"
+                                    "$ref": "#/definitions/injectLanguageArray"
                                 }
                             }
                         }
@@ -313,7 +313,7 @@
         }
     },
     "definitions": {
-        "injectLanguage": {
+        "injectionObject": {
             "type": "object",
             "description": "Embeds another language's syntax highlighting inside this region.",
             "required": [
@@ -330,6 +330,20 @@
                     "description": "The Vim syntax file to include (e.g., 'c')."
                 }
             }
+        },
+        "injectLanguageArray": {
+            "description": "A single language injection or an array of multiple relative injections.",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/injectionObject"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/injectionObject"
+                    }
+                }
+            ]
         }
     }
 }

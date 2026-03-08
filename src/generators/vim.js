@@ -34,15 +34,24 @@ function generateVim(grammar) {
         let ruleOutput = "";
 
         // Handle language injection
+        const injections = Array.isArray(r.injectLanguage) ? r.injectLanguage : (r.injectLanguage ? [r.injectLanguage] : []);
         let containsClause = "";
-        if (r.injectLanguage && r.injectLanguage.vimSyntax) {
-            const vLang = r.injectLanguage.vimSyntax;
-            const clusterName = `LexLoomCluster_${vLang.toUpperCase()}`;
-            if (!injectedSyntaxes.has(vLang)) {
-                includes += `syn include @${clusterName} syntax/${vLang}.vim\n`;
-                injectedSyntaxes.add(vLang);
+        const clusters = [];
+
+        injections.forEach(inj => {
+            if (inj.vimSyntax) {
+                const vLang = inj.vimSyntax;
+                const clusterName = `LexLoomCluster_${vLang.toUpperCase()}`;
+                if (!injectedSyntaxes.has(vLang)) {
+                    includes += `syn include @${clusterName} syntax/${vLang}.vim\n`;
+                    injectedSyntaxes.add(vLang);
+                }
+                clusters.push(`@${clusterName}`);
             }
-            containsClause = ` contains=@${clusterName}`;
+        });
+
+        if (clusters.length > 0) {
+            containsClause = ` contains=${clusters.join(',')}`;
         }
 
         switch (r.ruleType) {
