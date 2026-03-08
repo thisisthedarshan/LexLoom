@@ -1,0 +1,260 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "LexLoom Universal Syntax Schema",
+    "description": "Defines language syntax rules for multi-platform generation (VS Code, Vim, Notepad++).",
+    "type": "object",
+    "required": [
+        "metadata",
+        "rules"
+    ],
+    "properties": {
+        "metadata": {
+            "type": "object",
+            "description": "Information about the language being generated.",
+            "required": [
+                "name",
+                "scopeName",
+                "extensions"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Human readable name of the language (e.g., 'Portable Stimulus Standard')."
+                },
+                "scopeName": {
+                    "type": "string",
+                    "pattern": "^source\\..+$",
+                    "description": "Top-level TextMate scope. Must start with 'source.' (e.g., 'source.pss')."
+                },
+                "extensions": {
+                    "type": "array",
+                    "description": "List of file extensions associated with this language (e.g., ['.pss']).",
+                    "items": {
+                        "type": "string",
+                        "pattern": "^\\..+$"
+                    }
+                },
+                "version": {
+                    "type": "string",
+                    "description": "Version of the generated syntax package (e.g., '1.0.0').",
+                    "default": "1.0.0"
+                }
+            }
+        },
+        "rules": {
+            "type": "array",
+            "description": "The list of syntax rules that define how the language is highlighted.",
+            "items": {
+                "type": "object",
+                "required": [
+                    "ruleType",
+                    "universalScope"
+                ],
+                "properties": {
+                    "universalScope": {
+                        "type": "string",
+                        "description": "The standardized scope mapping. LexLoom will gracefully degrade this for editors like Vim and Notepad++.",
+                        "enum": [
+                            "keyword.control",
+                            "keyword.operator",
+                            "keyword.other",
+                            "support.type",
+                            "entity.name.type",
+                            "entity.name.function",
+                            "variable.other",
+                            "variable.parameter",
+                            "constant.numeric",
+                            "constant.language",
+                            "string.quoted.double",
+                            "string.quoted.single",
+                            "string.quoted.triple",
+                            "comment.line",
+                            "comment.block"
+                        ]
+                    },
+                    "ruleType": {
+                        "type": "string",
+                        "description": "The intent-based rule logic to apply.",
+                        "enum": [
+                            "wordList",
+                            "symbolList",
+                            "preset",
+                            "lineMarker",
+                            "blockMarker",
+                            "stringMarker"
+                        ]
+                    }
+                },
+                "allOf": [
+                    {
+                        "if": {
+                            "properties": {
+                                "ruleType": {
+                                    "const": "wordList"
+                                }
+                            }
+                        },
+                        "then": {
+                            "required": [
+                                "words"
+                            ],
+                            "properties": {
+                                "words": {
+                                    "type": "array",
+                                    "description": "Exact words to match. The engine handles word boundaries automatically.",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "if": {
+                            "properties": {
+                                "ruleType": {
+                                    "const": "symbolList"
+                                }
+                            }
+                        },
+                        "then": {
+                            "required": [
+                                "symbols"
+                            ],
+                            "properties": {
+                                "symbols": {
+                                    "type": "array",
+                                    "description": "Literal operators or symbols. The engine will safely escape these for regex.",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "if": {
+                            "properties": {
+                                "ruleType": {
+                                    "const": "preset"
+                                }
+                            }
+                        },
+                        "then": {
+                            "required": [
+                                "presetId"
+                            ],
+                            "properties": {
+                                "presetId": {
+                                    "type": "string",
+                                    "description": "Select a built-in highly optimized regex pattern.",
+                                    "enum": [
+                                        "number.decimal",
+                                        "number.hex",
+                                        "number.binary",
+                                        "number.octal"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "if": {
+                            "properties": {
+                                "ruleType": {
+                                    "const": "lineMarker"
+                                }
+                            }
+                        },
+                        "then": {
+                            "required": [
+                                "start"
+                            ],
+                            "properties": {
+                                "start": {
+                                    "type": "string",
+                                    "description": "The literal characters that start the line comment (e.g., '//')."
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "if": {
+                            "properties": {
+                                "ruleType": {
+                                    "const": "blockMarker"
+                                }
+                            }
+                        },
+                        "then": {
+                            "required": [
+                                "start",
+                                "end"
+                            ],
+                            "properties": {
+                                "start": {
+                                    "type": "string",
+                                    "description": "Starting characters (e.g., '/*')."
+                                },
+                                "end": {
+                                    "type": "string",
+                                    "description": "Ending characters (e.g., '*/')."
+                                },
+                                "injectLanguage": {
+                                    "$ref": "#/definitions/injectLanguage"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "if": {
+                            "properties": {
+                                "ruleType": {
+                                    "const": "stringMarker"
+                                }
+                            }
+                        },
+                        "then": {
+                            "required": [
+                                "quote"
+                            ],
+                            "properties": {
+                                "quote": {
+                                    "type": "string",
+                                    "description": "The literal quotation mark (e.g., '\"' or '\"\"\"')."
+                                },
+                                "escapeChar": {
+                                    "type": "string",
+                                    "description": "The character used to escape quotes inside the string (e.g., '\\')."
+                                },
+                                "injectLanguage": {
+                                    "$ref": "#/definitions/injectLanguage"
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "definitions": {
+        "injectLanguage": {
+            "type": "object",
+            "description": "Embeds another language's syntax highlighting inside this region.",
+            "required": [
+                "textmateScope",
+                "vimSyntax"
+            ],
+            "properties": {
+                "textmateScope": {
+                    "type": "string",
+                    "description": "The VS Code/TextMate scope to inject (e.g., 'source.c')."
+                },
+                "vimSyntax": {
+                    "type": "string",
+                    "description": "The Vim syntax file to include (e.g., 'c')."
+                }
+            }
+        }
+    }
+}

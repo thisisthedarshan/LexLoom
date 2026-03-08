@@ -1,0 +1,27 @@
+{
+  "name": "lexloom",
+  "version": "1.0.0",
+  "description": "A cross-platform syntax highlighting meta-compiler.",
+  "main": "src/index.js",
+  "bin": {
+    "lexloom": "bin/lexloom.js"
+  },
+  "scripts": {
+    "start": "node bin/lexloom.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "syntax",
+    "highlighting",
+    "vscode",
+    "vim",
+    "notepadpp",
+    "tmLanguage"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^11.1.0",
+    "plist": "^3.1.0"
+  }
+}

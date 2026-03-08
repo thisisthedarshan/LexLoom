@@ -1,0 +1,96 @@
+{
+    "$schema": "./lexloom.schema.json",
+    "metadata": {
+        "name": "MiniPSS",
+        "scopeName": "source.minipss",
+        "extensions": [
+            ".mpss"
+        ],
+        "version": "1.0.0"
+    },
+    "rules": [
+        {
+            "ruleType": "wordList",
+            "universalScope": "keyword.control",
+            "words": [
+                "action",
+                "component",
+                "struct",
+                "extend",
+                "pool",
+                "bind"
+            ]
+        },
+        {
+            "ruleType": "wordList",
+            "universalScope": "support.type",
+            "words": [
+                "int",
+                "bit",
+                "string",
+                "bool"
+            ]
+        },
+        {
+            "ruleType": "wordList",
+            "universalScope": "constant.language",
+            "words": [
+                "true",
+                "false",
+                "null"
+            ]
+        },
+        {
+            "ruleType": "symbolList",
+            "universalScope": "keyword.operator",
+            "symbols": [
+                "==",
+                "!=",
+                "+",
+                "-",
+                "*",
+                "/",
+                "&&",
+                "||",
+                "="
+            ]
+        },
+        {
+            "ruleType": "preset",
+            "universalScope": "constant.numeric",
+            "presetId": "number.decimal"
+        },
+        {
+            "ruleType": "preset",
+            "universalScope": "constant.numeric",
+            "presetId": "number.hex"
+        },
+        {
+            "ruleType": "lineMarker",
+            "universalScope": "comment.line",
+            "start": "//"
+        },
+        {
+            "ruleType": "blockMarker",
+            "universalScope": "comment.block",
+            "start": "/*",
+            "end": "*/"
+        },
+        {
+            "ruleType": "stringMarker",
+            "universalScope": "string.quoted.double",
+            "quote": "\"",
+            "escapeChar": "\\"
+        },
+        {
+            "ruleType": "stringMarker",
+            "universalScope": "string.quoted.triple",
+            "quote": "\"\"\"",
+            "escapeChar": "\\",
+            "injectLanguage": {
+                "textmateScope": "source.c",
+                "vimSyntax": "c"
+            }
+        }
+    ]
+}
